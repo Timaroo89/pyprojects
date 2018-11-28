@@ -3,11 +3,15 @@ from sys import exit
 linebr = "**************************************************"
 
 class Character(object):
+
+    inv = []
+
     def __init__(self, name, strength, agility, mind):
         self.name = name
         self.strength = strength
         self.agility = agility
         self.mind = mind
+
 
 def getInput(prompt):
     getPrompt = prompt
@@ -32,10 +36,14 @@ def getCommand(prompt, character):
             print("Oops, not a number, try again.")
 
     if data == 0:
-        print(thisChar.name)
-        print(thisChar.strength)
-        print(thisChar.agility)
-        print(thisChar.mind)
+        print(f"Name:      {thisChar.name}")
+        print(f"Strength:  {thisChar.strength}")
+        print(f"Agility:   {thisChar.agility}")
+        print(f"Mind:      {thisChar.mind}")
+        print("Items in Inventory:")
+        print(*thisChar.inv, sep = "\n")
+        print(linebr)
+
 
     return data
 
@@ -85,9 +93,9 @@ def create_character(points):
 
     print(linebr)
     print(f"Well done {name}, you have:")
-    print(f"{strength} points in Strength.")
-    print(f"{agility} points in Agility.")
-    print(f"{mind} points in Mind.")
+    print(f"{strength} point(s) in Strength.")
+    print(f"{agility} point(s) in Agility.")
+    print(f"{mind} point(s) in Mind.")
     print("")
     print("To access your stats at anytime, type the command '0'")
 
@@ -98,6 +106,7 @@ def prisonCell(character):
     print(linebr)
     notEscaped = True
     while notEscaped:
+        #run the room
         command = getCommand("You're in a prison, how do you proceed? >> ", thisChar)
         if command == 1:
             notEscaped = False
@@ -108,4 +117,7 @@ def prisonCell(character):
 
 
 character = create_character(3)
+character.inv.append("sword")
+character.inv.append("shield")
+
 prisonCell(character)
